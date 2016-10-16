@@ -3,7 +3,7 @@
 from twisted.internet import defer
 from client.cltremote import IRemote
 import logging
-import random
+from random import randint
 from client.cltgui.cltguidialogs import GuiRecapitulatif
 import PublicGoodLocalGlobalParams as pms
 from PublicGoodLocalGlobalGui import GuiDecision
@@ -19,9 +19,11 @@ class RemotePGLG(IRemote):
     """
     def __init__(self, le2mclt):
         IRemote.__init__(self, le2mclt)
-        self._histo_vars = ["PGLG_period", "PGLG_indiv", "PGLG_public",
-                            "PGLG_publicgroup", "PGLG_periodpayoff",
-                            "PGLG_cumulativepayoff"]
+        self._histo_vars = ["PGLG_period", "PGLG_indiv", "PGLG_local",
+                            "PGLG_global", "PGLG_localsousgroup",
+                            "PGLG_globalsousgroup", "PGLG_globalgroup",
+                            "PGLG_indivpayoff", "PGLG_localpayoff", "PGLG_globalpayoff",
+                            "PGLG_periodpayoff", "PGLG_cumulativepayoff"]
         self.histo.append(texts_PGG.get_histo_head())
 
     def remote_configure(self, params):
@@ -38,13 +40,14 @@ class RemotePGLG(IRemote):
     def remote_display_decision(self):
         logger.info(u"{} Decision".format(self._le2mclt.uid))
         if self._le2mclt.simulation:
-            decision = \
-                random.randrange(
-                    pms.DECISION_MIN,
-                    pms.DECISION_MAX + pms.DECISION_STEP,
-                    pms.DECISION_STEP)
-            logger.info(u"{} Send back {}".format(self._le2mclt.uid, decision))
-            return decision
+            indiv, loc, glob = 0, 0, 0
+            while indiv + loc + glob != pms.DOTATION:
+                indiv = randint(0, pms.DOTATION)
+                loc = randint(0, pms.DOTATION)
+                glob = randint(0, pms.DOTATION)
+            logger.info(u"{} Send back {}".format(self._le2mclt.uid,
+                                                  (indiv, loc, glob)))
+            return indiv, loc, glob
         else: 
             defered = defer.Deferred()
             ecran_decision = GuiDecision(
@@ -63,6 +66,7 @@ class RemotePGLG(IRemote):
             ecran_recap = GuiRecapitulatif(
                 defered, self._le2mclt.automatique, self._le2mclt.screen,
                 self.currentperiod, self.histo,
-                texts_PGG.get_text_summary(period_content))
+                texts_PGG.get_text_summary(period_content),
+                size_histo=(1100, 120))
             ecran_recap.show()
             return defered

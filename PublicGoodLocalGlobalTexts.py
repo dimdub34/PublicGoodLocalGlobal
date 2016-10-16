@@ -25,8 +25,15 @@ except IOError:
 
 def get_histo_head():
     return [trans_PGLG(u"Period"), trans_PGLG(u"Individual\naccount"),
-            trans_PGLG(u"Public\naccount"), trans_PGLG(u"Public\naccount\ngroup"),
-            trans_PGLG(u"Period\npayoff"), trans_PGLG(u"Cumulative\npayoff")]
+            trans_PGLG(u"Local\naccount"), trans_PGLG(u"Global\naccount"),
+            trans_PGLG(u"Local\naccount\nsubgoup"),
+            trans_PGLG(u"Global\naccount\nsubgroup"),
+            trans_PGLG(u"Global\naccount\ntotal"),
+            trans_PGLG(u"Individual\naccount\npayoff"),
+            trans_PGLG(u"Local\naccount\npayoff"),
+            trans_PGLG(u"Global\naccount\npayoff"),
+            trans_PGLG(u"Period\npayoff"),
+            trans_PGLG(u"Cumulative\npayoff")]
 
 
 def get_text_explanation():
@@ -39,13 +46,19 @@ def get_text_label_decision():
 
 
 def get_text_summary(period_content):
-    txt = trans_PGLG(u"You put {} in your individual account and {} in the "
-                    u"public account. Your group put {} in the public "
-                    u"account.\nYour payoff for the current period is equal "
-                    u"to {}.").format(
+    txt = trans_PGLG(u"You put {} in your individual account, {} in the local"
+                     u"account and {} in the global account. "
+                     u"Your subgroup put {} in the local account and {} in "
+                     u"the global account.\n"
+                     u"Your group put {} in the global account.\n"
+                     u"Your payoff for the current period is equal "
+                     u"to {}.").format(
         get_pluriel(period_content.get("PGLG_indiv"), trans_PGLG(u"token")),
-        get_pluriel(period_content.get("PGLG_public"), trans_PGLG(u"token")),
-        get_pluriel(period_content.get("PGLG_publicgroup"), trans_PGLG(u"token")),
+        get_pluriel(period_content.get("PGLG_local"), trans_PGLG(u"token")),
+        get_pluriel(period_content.get("PGLG_global"), trans_PGLG(u"token")),
+        get_pluriel(period_content.get("PGLG_localsousgroup"), trans_PGLG(u"token")),
+        get_pluriel(period_content.get("PGLG_globalsousgroup"), trans_PGLG(u"token")),
+        get_pluriel(period_content.get("PGLG_globalgroup"), trans_PGLG(u"token")),
         get_pluriel(period_content.get("PGLG_periodpayoff"), pms.MONNAIE))
     return txt
 

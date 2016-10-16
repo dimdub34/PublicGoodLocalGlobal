@@ -68,6 +68,10 @@ class Serveur(object):
             self._le2mserv.gestionnaire_joueurs.get_players(),
             pms.TAILLE_GROUPES, forcer_nouveaux=True)
 
+        # subgroups
+        self._le2mserv.gestionnaire_groupes.former_sousgroupes(
+            pms.TAILLE_SOUS_GROUPES, forcer_nouveaux=True)
+
         # set parameters on remotes
         yield (self._le2mserv.gestionnaire_experience.run_func(
             self._tous, "configure"))
@@ -91,17 +95,34 @@ class Serveur(object):
             yield(self._le2mserv.gestionnaire_experience.run_step(
                 u"Décision", self._tous, "display_decision"))
 
-            # compute total amount in the public account by group
+            # compute total amount in the public account by group --------------
             self._le2mserv.gestionnaire_graphique.infoserv(
                 trans_PGLG(u"Total amount by group"))
+
             for g, m in self._le2mserv.gestionnaire_groupes.get_groupes(
                     "PublicGoodLocalGlobal").viewitems():
-                total = sum([p.currentperiod.PGLG_public for p in m])
-                for p in m:
-                    p.currentperiod.PGLG_publicgroup = total
+
+                global_sg, local_sg = {}, {}
+                for sg, msg in self._le2mserv.gestionnaire_groupes.get_sousgroupes(g).viewitems():
+                    global_sg[sg] = sum([p.get_part("PublicGoodLocalGlobal").currentperiod.PGLG_global for p in msg])
+                    local_sg[sg] = sum([p.get_part("PublicGoodLocalGlobal").currentperiod.PGLG_local for p in msg])
+                    for p in msg:
+                        p.get_part("PublicGoodLocalGlobal").currentperiod.PGLG_globalsousgroup = global_sg[sg]
+                        p.get_part("PublicGoodLocalGlobal").currentperiod.PGLG_localsousgroup = local_sg[sg]
+                    self._le2mserv.gestionnaire_graphique.infoserv(
+                        u"G{} SG{} local {} global {}".format(
+                            g.split("_")[2], sg.split("_")[2],
+                            local_sg[sg], global_sg[sg]))
+
+                total_global = sum(global_sg.viewvalues())
                 self._le2mserv.gestionnaire_graphique.infoserv(
-                    u"G{}: {}".format(g.split("_")[2], total))
-            
+                    u"G{} global {}".format(g.split("_")[2], total_global))
+                total_local = sum(local_sg.viewvalues())
+                for p in m:
+                    p.currentperiod.PGLG_globalgroup = total_global
+                    p.currentperiod.PGLG_localothersousgroup = total_local - \
+                        p.currentperiod.PGLG_localsousgroup
+
             # period payoff
             self._le2mserv.gestionnaire_experience.compute_periodpayoffs(
                 "PublicGoodLocalGlobal")

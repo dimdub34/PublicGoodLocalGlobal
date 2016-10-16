@@ -2,7 +2,7 @@
 
 from twisted.internet import defer
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy import Column, Integer, Float, ForeignKey, String
 import logging
 from datetime import datetime
 from util.utiltools import get_module_attributes
@@ -43,10 +43,10 @@ class PartiePGLG(Partie):
         logger.debug(u"{} New Period".format(self.joueur))
         self.currentperiod = RepetitionsPGLG(period)
         self.currentperiod.PGLG_group = self.joueur.groupe
+        self.currentperiod.PGLG_sousgroup = self.joueur.sousgroupe
         self._le2mserv.gestionnaire_base.ajouter(self.currentperiod)
         self.repetitions.append(self.currentperiod)
-        yield (
-            self.remote.callRemote("newperiod", period))
+        yield (self.remote.callRemote("newperiod", period))
         logger.info(u"{} Ready for periode {}".format(self.joueur, period))
 
     @defer.inlineCallbacks
@@ -58,15 +58,13 @@ class PartiePGLG(Partie):
         """
         logger.debug(u"{} Decision".format(self.joueur))
         debut = datetime.now()
-        self.currentperiod.PGLG_public = \
-            yield(
-                self.remote.callRemote("display_decision"))
+        indiv, loc, glob = yield(self.remote.callRemote("display_decision"))
         self.currentperiod.PGLG_decisiontime = \
             (datetime.now() - debut).seconds
-        self.currentperiod.PGLG_indiv = \
-            pms.DOTATION - self.currentperiod.PGLG_public
-        self.joueur.info(u"{}".format(
-            self.currentperiod.PGLG_public))
+        self.currentperiod.PGLG_indiv = indiv
+        self.currentperiod.PGLG_local = loc
+        self.currentperiod.PGLG_global = glob
+        self.joueur.info(u"{}".format((indiv, loc, glob)))
         self.joueur.remove_waitmode()
 
     def compute_periodpayoff(self):
@@ -75,12 +73,19 @@ class PartiePGLG(Partie):
         :return:
         """
         logger.debug(u"{} Period Payoff".format(self.joueur))
-        self.currentperiod.PGLG_indivpayoff = self.currentperiod.PGLG_indiv * 1
-        self.currentperiod.PGLG_publicpayoff = \
-            self.currentperiod.PGLG_publicgroup * pms.MPCR
+        self.currentperiod.PGLG_indivpayoff = self.currentperiod.PGLG_indiv * \
+                                              pms.TAUX_INDIV
+
+        self.currentperiod.PGLG_localpayoff = \
+            self.currentperiod.PGLG_localsousgroup * pms.TAUX_LOCAL
+
+        self.currentperiod.PGLG_globalpayoff = \
+            self.currentperiod.PGLG_globalgroup * pms.TAUX_GLOBAL
+
         self.currentperiod.PGLG_periodpayoff = \
             self.currentperiod.PGLG_indivpayoff + \
-            self.currentperiod.PGLG_publicpayoff
+            self.currentperiod.PGLG_localpayoff + \
+            self.currentperiod.PGLG_globalpayoff
 
         # cumulative payoff since the first period
         if self.currentperiod.PGLG_period < 2:
@@ -102,8 +107,7 @@ class PartiePGLG(Partie):
     @defer.inlineCallbacks
     def display_summary(self, *args):
         logger.debug(u"{} Summary".format(self.joueur))
-        yield(
-            self.remote.callRemote(
+        yield(self.remote.callRemote(
                 "display_summary", self.currentperiod.todict()))
         self.joueur.info("Ok")
         self.joueur.remove_waitmode()
@@ -133,13 +137,19 @@ class RepetitionsPGLG(Base):
 
     PGLG_period = Column(Integer)
     PGLG_treatment = Column(Integer)
-    PGLG_group = Column(Integer)
+    PGLG_group = Column(String)
+    PGLG_sousgroup = Column(String)
     PGLG_indiv = Column(Integer)
-    PGLG_public = Column(Integer)
-    PGLG_publicgroup = Column(Integer)
+    PGLG_local = Column(Integer)
+    PGLG_global = Column(Integer)
     PGLG_decisiontime = Column(Integer)
+    PGLG_localsousgroup = Column(Integer)
+    PGLG_localothersousgroup = Column(Integer)
+    PGLG_globalsousgroup = Column(Integer)
+    PGLG_globalgroup = Column(Integer)
     PGLG_indivpayoff = Column(Float)
-    PGLG_publicpayoff = Column(Float)
+    PGLG_localpayoff = Column(Float)
+    PGLG_globalpayoff = Column(Float)
     PGLG_periodpayoff = Column(Float)
     PGLG_cumulativepayoff = Column(Float)
 
