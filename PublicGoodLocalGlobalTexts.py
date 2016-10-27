@@ -46,7 +46,7 @@ def get_text_label_decision():
 
 
 def get_text_summary(period_content):
-    txt = trans_PGLG(u"You put {} in your individual account, {} in the local"
+    txt = trans_PGLG(u"You put {} in your individual account, {} in the local "
                      u"account and {} in the global account. "
                      u"Your subgroup put {} in the local account and {} in "
                      u"the global account.\n"

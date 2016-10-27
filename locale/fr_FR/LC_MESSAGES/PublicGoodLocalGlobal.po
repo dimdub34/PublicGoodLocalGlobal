@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-10-27 14:28+0200\n"
+"PO-Revision-Date: 2016-10-27 14:35+0200\n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: Dimitri DUBOIS <dimitri.dubois@umontpellier.fr>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:27
+msgid "Period"
+msgstr "Période"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:27
+msgid ""
+"Individual\n"
+"account"
+msgstr ""
+"Compte\n"
+"individuel"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:28
+msgid ""
+"Local\n"
+"account"
+msgstr ""
+"Compte\n"
+"local"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:28
+msgid ""
+"Global\n"
+"account"
+msgstr ""
+"Compte\n"
+"global"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:29
+msgid ""
+"Local\n"
+"account\n"
+"subgoup"
+msgstr ""
+"Compte\n"
+"local\n"
+"sous-groupe"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:30
+msgid ""
+"Global\n"
+"account\n"
+"subgroup"
+msgstr ""
+"Compte\n"
+"global\n"
+"sous-groupe"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:31
+msgid ""
+"Global\n"
+"account\n"
+"total"
+msgstr ""
+"Compte\n"
+"global\n"
+"total"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:32
+msgid ""
+"Individual\n"
+"account\n"
+"payoff"
+msgstr ""
+"Gain\n"
+"compte\n"
+"individuel"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:33
+msgid ""
+"Local\n"
+"account\n"
+"payoff"
+msgstr ""
+"Gain\n"
+"compte\n"
+"local"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:34
+msgid ""
+"Global\n"
+"account\n"
+"payoff"
+msgstr ""
+"Gain\n"
+"compte\n"
+"global"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:35
+msgid ""
+"Period\n"
+"payoff"
+msgstr ""
+"Gain\n"
+"période"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:36
+msgid ""
+"Cumulative\n"
+"payoff"
+msgstr ""
+"Gain\n"
+"cumulé"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:40
+msgid "You have an endowment of {} tokens."
+msgstr "Vous disposez d'une dotation de {} jetons"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:44
+msgid "Please enter the number of token(s) you put on the public account"
+msgstr ""
+"Veuillez saisir le nombre de jetons que vous placez sur le compte collectif"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:49
+msgid ""
+"You put {} in your individual account, {} in the local account and {} in the "
+"global account. Your subgroup put {} in the local account and {} in the "
+"global account.\n"
+"Your group put {} in the global account.\n"
+"Your payoff for the current period is equal to {}."
+msgstr ""
+"Vous avez placé {} sur votre compte individuel, {} sur le compte collectif "
+"local et {} sur le compte collectif global. Votre sous-groupe a placé {} sur "
+"le compte collectif local et {} sur le compte collectif global.\n"
+"Votre groupe a placé {} sur le compte collectif global.\n"
+"Votre gain pour la période est de {}."
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:56
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:57
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:58
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:59
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:60
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalTexts.py:61
+msgid "token"
+msgstr "jeton"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:23
+msgid "Configure"
+msgstr "Configurer"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:24
+msgid "Display parameters"
+msgstr "Afficher les paramètres"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:28
+msgid "Start"
+msgstr "Démarrer"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:29
+msgid "Display payoffs"
+msgstr "Afficher les gains"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:39
+msgid "There is no nothing to configure"
+msgstr "Il n'y a aucun paramètre à configurer"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:52
+msgid "The number of players is not compatible with the group size"
+msgstr "Le nombre de joueurs n'est pas compatible avec la taille des groupes."
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalServ.py:100
+msgid "Total amount by group"
+msgstr "Quantité totale par groupe"
+
+#: /home/dimitri/Documents/travail/programmes/le2m-v2.1/le2m/parts/PublicGoodLocalGlobal/PublicGoodLocalGlobalGui.py:83
+msgid "Decision"
+msgstr "Décision"
