@@ -124,3 +124,74 @@ class GuiDecision(QtGui.QDialog):
         logger.info(u"Decision callback {}".format((indiv, loc, glob)))
         self.accept()
         self._defered.callback((indiv, loc, glob))
+
+
+class DConfigure(QtGui.QDialog):
+    def __init__(self, parent):
+        QtGui.QDialog.__init__(self, parent)
+
+        layout = QtGui.QVBoxLayout()
+        self.setLayout(layout)
+
+        form = QtGui.QFormLayout()
+        layout.addLayout(form)
+
+        # treatment
+        self._combo_treatment = QtGui.QComboBox()
+        self._combo_treatment.addItems(
+            list(sorted(pms.TREATMENTS_NAMES.viewvalues())))
+        self._combo_treatment.setCurrentIndex(pms.TREATMENT)
+        form.addRow(QtGui.QLabel(u"Traitement"), self._combo_treatment)
+
+        # nombre de périodes
+        self._spin_periods = QtGui.QSpinBox()
+        self._spin_periods.setMinimum(0)
+        self._spin_periods.setMaximum(100)
+        self._spin_periods.setSingleStep(1)
+        self._spin_periods.setValue(pms.NOMBRE_PERIODES)
+        self._spin_periods.setButtonSymbols(QtGui.QSpinBox.NoButtons)
+        self._spin_periods.setMaximumWidth(50)
+        form.addRow(QtGui.QLabel(u"Nombre de périodes"), self._spin_periods)
+
+        # periode essai
+        self._checkbox_essai = QtGui.QCheckBox()
+        self._checkbox_essai.setChecked(pms.PERIODE_ESSAI)
+        form.addRow(QtGui.QLabel(u"Période d'essai"), self._checkbox_essai)
+
+        # taille groupes
+        self._spin_groups = QtGui.QSpinBox()
+        self._spin_groups.setMinimum(2)
+        self._spin_groups.setMaximum(100)
+        self._spin_groups.setSingleStep(1)
+        self._spin_groups.setValue(pms.TAILLE_GROUPES)
+        self._spin_groups.setButtonSymbols(QtGui.QSpinBox.NoButtons)
+        self._spin_groups.setMaximumWidth(50)
+        form.addRow(QtGui.QLabel(u"Taille des groupes"), self._spin_groups)
+        
+        # taille sous-groupes
+        self._sping_subgroups = QtGui.QSpinBox()
+        self._sping_subgroups.setMinimum(2)
+        self._sping_subgroups.setMaximum(100)
+        self._sping_subgroups.setSingleStep(1)
+        self._sping_subgroups.setValue(pms.TAILLE_SOUS_GROUPES)
+        self._sping_subgroups.setButtonSymbols(QtGui.QSpinBox.NoButtons)
+        self._sping_subgroups.setMaximumWidth(50)
+        form.addRow(QtGui.QLabel(u"Taille des sous-groupes"), self._sping_subgroups)
+
+        button = QtGui.QDialogButtonBox(
+            QtGui.QDialogButtonBox.Ok | QtGui.QDialogButtonBox.Cancel)
+        button.accepted.connect(self._accept)
+        button.rejected.connect(self.reject)
+        layout.addWidget(button)
+
+        self.setWindowTitle(u"Configurer")
+        self.adjustSize()
+        self.setFixedSize(self.size())
+
+    def _accept(self):
+        pms.TREATMENT = self._combo_treatment.currentIndex()
+        pms.PERIODE_ESSAI = self._checkbox_essai.isChecked()
+        pms.NOMBRE_PERIODES = self._spin_periods.value()
+        pms.TAILLE_GROUPES = self._spin_groups.value()
+        pms.TAILLE_SOUS_GROUPES = self._sping_subgroups.value()
+        self.accept()

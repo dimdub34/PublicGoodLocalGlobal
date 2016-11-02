@@ -8,6 +8,7 @@ from collections import OrderedDict
 from util import utiltools
 import PublicGoodLocalGlobalParams as pms
 from PublicGoodLocalGlobalTexts import trans_PGLG
+from PublicGoodLocalGlobalGui import DConfigure
 
 
 logger = logging.getLogger("le2m".format(__name__))
@@ -35,9 +36,20 @@ class Serveur(object):
         self._fig = None
 
     def _configure(self):
-        self._le2mserv.gestionnaire_graphique.display_information(
-            trans_PGLG(u"There is no nothing to configure"))
-        return
+        # self._le2mserv.gestionnaire_graphique.display_information(
+        #     trans_PGLG(u"There is no nothing to configure"))
+        # return
+        screen_conf = DConfigure(self._le2mserv.gestionnaire_graphique.screen)
+        if screen_conf.exec_():
+            self._le2mserv.gestionnaire_graphique.infoserv(u"Traitement: {}".format(
+                pms.TREATMENTS_NAMES.get(pms.TREATMENT)))
+            self._le2mserv.gestionnaire_graphique.infoserv(
+                u"Période d'essai: {}".format(
+                    u"oui" if pms.PERIODE_ESSAI else u"non"))
+            self._le2mserv.gestionnaire_graphique.infoserv(
+                u"Taille des groupes: {}".format(pms.TAILLE_GROUPES))
+            self._le2mserv.gestionnaire_graphique.infoserv(
+                u"Taille des sous-groupes: {}".format(pms.TAILLE_SOUS_GROUPES))
 
     @defer.inlineCallbacks
     def _demarrer(self):
@@ -66,11 +78,11 @@ class Serveur(object):
         # groups
         self._le2mserv.gestionnaire_groupes.former_groupes(
             self._le2mserv.gestionnaire_joueurs.get_players(),
-            pms.TAILLE_GROUPES, forcer_nouveaux=True)
+            pms.TAILLE_GROUPES, forcer_nouveaux=False)
 
         # subgroups
         self._le2mserv.gestionnaire_groupes.former_sousgroupes(
-            pms.TAILLE_SOUS_GROUPES, forcer_nouveaux=True)
+            pms.TAILLE_SOUS_GROUPES, forcer_nouveaux=False)
 
         # set parameters on remotes
         yield (self._le2mserv.gestionnaire_experience.run_func(
